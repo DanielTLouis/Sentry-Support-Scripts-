@@ -3,14 +3,6 @@
 #By Daniel Louis
 #10/29/2024
 
-#Check to see if user is logged into root to run this scirpt
-##If not exit the script 
-if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root"
-   echo "Please use the command sudo -i to become root" 
-   return -1
-fi 
-
 #Function update_hostname 
 update_hostname()
 {
@@ -62,6 +54,14 @@ update_hostname()
 #Function: main controller function 
 update_hostname_main()
 {
+  #Check to see if user is logged into root to run this scirpt
+  ##If not exit the script 
+  if [[ $EUID -ne 0 ]]; then
+     echo "This script must be run as root"
+     echo "Please use the command sudo -i to become root" 
+     return -1
+  fi
+
   ##Ask if the user wants to update the name or let them exit safely
   while true; do
     
