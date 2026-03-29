@@ -30,14 +30,6 @@ base_config_last_steps_main()
     echo "Password for user root set to DEAFUALT"
   fi 
   
-  # Install TaleScale
-  #curl -fsSL https://pkgs.tailscale.com/stable/opensuse/tailscale.repo | sudo tee /etc/zypp/repos.d/tailscale.repo
-  #sudo zypper refresh
-  #sudo zypper install -y tailscale
-  #sudo systemctl enable --now tailscaled
-  #sudo tailscale up
-  #tailscale status
-  
   # Install perccli - Same thing as StorCLI
   if ! hich perccli >/dev/null 2>&1; then
     zypper install wget
@@ -45,6 +37,10 @@ base_config_last_steps_main()
     zypper install /BaseConfigDocs/perccli/perccli-007.1623.0000.0000-1.noarch.rpm
     ln -s /opt/MegaRAID/perccli/perccli64 /usr/local/bin/perccli
   fi
+
+  #Install Java 21
+  zypper in java-21-openjdk 
+  java --version
   
   # Set up asentry_man alaias 
 FILE=/etc/bash.bashrc.local
@@ -73,6 +69,8 @@ EOF"
   ###############################
   ##       For Help Enter      ##
   ##         asentry_man       ##
+  ##  File Location:           ##
+  ##  /BaseConfigDocs/help.sh  ##
   ###############################" >  /etc/motd
   echo "Message of the Day set"
 }
