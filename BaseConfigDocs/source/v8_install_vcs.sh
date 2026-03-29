@@ -17,11 +17,11 @@ v8_install_vcs_main()
       echo "This script must be run as the 'root' user. Exiting."
       exit 1
   fi
-  if [ -d "/tmp/BaseConfigDocs/vcs_version" ]; then
+  if [ -d "/BaseConfigDocs/vcs_version" ]; then
       ehco "BaseConfigDocsExist"
   else
       echo "Makeing Dir"
-      sudo mkdir -p /tmp/BaseConfigDocs/vcs_vesrion
+      sudo mkdir -p /BaseConfigDocs/vcs_vesrion
   fi 
   #scp "root@192.168.2.70:/BaseConfigDocs/vcs_version/server_install.jar" /tmp/BaseConfigDocs/vcs_vesrion 
   
