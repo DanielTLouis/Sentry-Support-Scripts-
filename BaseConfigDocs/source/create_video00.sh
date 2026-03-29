@@ -10,10 +10,11 @@ create_video00_main()
   if [[ $EUID -ne 0 ]]; then
      echo "This script must be run as root"
      echo "Please use the command sudo -i to become root" 
+     exit 1
   fi
   
   # Install perccli is not installed 
-  if ! hich perccli >/dev/null 2>&1; then
+  if ! which perccli >/dev/null 2>&1; then
     zypper install wget
     tar -xvzf /BaseConfigDocs/perccli/PERCCLI_7.1623.00_A11_Linux.tar.gz -C /tmp/BaseConfigDocs/perccli/
     zypper install /BaseConfigDocs/perccli/perccli-007.1623.0000.0000-1.noarch.rpm
