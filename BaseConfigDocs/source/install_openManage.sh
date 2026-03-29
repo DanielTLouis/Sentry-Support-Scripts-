@@ -3,7 +3,7 @@
 #By Daniel Louis
 #05/14/2025
 
-install_openManage_main()
+install_openManage()
 {
   # Check if user is logged in as vcs
   if [ "$USER" != "root" ]; then
@@ -40,4 +40,44 @@ install_openManage_main()
   
   sudo systemctl status dsm_sa_datamgrd.service 
   sudo systemctl status dsm_om_connsvc.service 
+}
+
+restart_openManage()
+{
+  sudo systemctl restart instsvcdrv.service 
+  sudo systemctl restart dsm_sa_datamgrd.service 
+  sudo systemctl restart dsm_sa_eventmgrd.service 
+  sudo systemctl restart dsm_sa_snmpd.service 
+  sudo systemctl restart dsm_om_connsvc.service
+
+  sudo systemctl status dsm_sa_datamgrd.service 
+  sudo systemctl status dsm_om_connsvc.service 
+}
+
+install_openManage_main()
+{
+  while true; do 
+    echo ""
+    echo "  1. Install Open Manage."
+    echo "  2. Restart Open Manage."
+    echo "  3. Exit."
+    read -p "Choose an option: " choice
+    
+    case $choice in 
+      1)
+        echo "Installing Open Manage..."
+        install_openManage
+        ;;
+      2) 
+        echo "Restarting Open Manage..."
+        restart_openManage
+        ;;
+      3)
+        echo "...Exiting"
+        break
+        ;;
+      *) 
+        echo "Invailid input"
+    esac
+  done 
 }
