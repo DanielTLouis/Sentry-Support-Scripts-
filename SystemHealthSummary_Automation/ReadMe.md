@@ -13,9 +13,13 @@ This process explains how to collect System Health Summary data for Axis cameras
 # Fist Part
 The information from the customer’s site can be gathered in two ways.
 
-## Option 1 (Preferred): Use Axis Device Manager Extend on the customer’s network and export a CSV file containing the camera information. Follow the Instructions: here
+## Option 1 (Preferred):
 
-## Option 2 (Only use when ADMX is not an option): Run the Bash script below to collect the required data directly from the cameras using VAPIX commands.
+Use Axis Device Manager Extend on the customer’s network and export a CSV file containing the camera information. Follow the Instructions: here
+
+## Option 2 (Only use when ADMX is not an option): 
+
+Run the Bash script below to collect the required data directly from the cameras using VAPIX commands.
 
 Depending on the site’s network architecture, run Option 1 or Option 2 on servers that provide coverage for the entire network. Some sites may require the process to be run on multiple servers, while others may only require a single server.
 
