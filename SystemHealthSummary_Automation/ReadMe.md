@@ -1,6 +1,6 @@
 This process explains how to collect System Health Summary data for Axis cameras from each site. It consists of Three parts.
 ---
-###Part 1 is performed on the customer’s site and is used to gather the required data directly from their network.
+### Part 1 is performed on the customer’s site and is used to gather the required data directly from their network.
 ###Part 2 takes the collected data and formats it into a clean, organized layout within a Google Sheet.
 ###Part 3 will create the charts for the non-axis cameras using App Scripts.
 ---
