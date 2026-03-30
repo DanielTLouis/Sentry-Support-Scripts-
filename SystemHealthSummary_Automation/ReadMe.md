@@ -1,15 +1,15 @@
 This process explains how to collect System Health Summary data for Axis cameras from each site. It consists of Three parts.
 ---
 ### Part 1 is performed on the customer’s site and is used to gather the required data directly from their network.
-###Part 2 takes the collected data and formats it into a clean, organized layout within a Google Sheet.
-###Part 3 will create the charts for the non-axis cameras using App Scripts.
+### Part 2 takes the collected data and formats it into a clean, organized layout within a Google Sheet.
+### Part 3 will create the charts for the non-axis cameras using App Scripts.
 ---
-#Fist Part
+# Fist Part
 The information from the customer’s site can be gathered in two ways.
 
-##Option 1 (Preferred): Use Axis Device Manager Extend on the customer’s network and export a CSV file containing the camera information. Follow the Instructions: here
+## Option 1 (Preferred): Use Axis Device Manager Extend on the customer’s network and export a CSV file containing the camera information. Follow the Instructions: here
 
-##Option 2 (Only use when ADMX is not an option): Run the Bash script below to collect the required data directly from the cameras using VAPIX commands.
+## Option 2 (Only use when ADMX is not an option): Run the Bash script below to collect the required data directly from the cameras using VAPIX commands.
 
 Depending on the site’s network architecture, run Option 1 or Option 2 on servers that provide coverage for the entire network. Some sites may require the process to be run on multiple servers, while others may only require a single server.
 
@@ -38,7 +38,7 @@ The output file will be located at:
 /tmp/${host_name}/${server_id}_axis_basicdeviceinfo.txt
 After the script completes, copy the output file back to your local machine for further processing.
 ---
-##Second Part
+## Second Part
 Add a Tab in the Google Sheet right after [“Inventory Charts”] and name it exactly [“AxisCameras“] (no space between Axis and Cameras)
 
 Once the data has been gathered from the customer’s site, it must be processed and then entered into the site-specific Google Sheet. (If ADMX was used then follow the ADMX instructions to add them manually and skip to part 3)
@@ -67,7 +67,7 @@ This can be found in the URL of the Google Sheet. For example:
 https://docs.google.com/spreadsheets/d/<THIS_IS_THE_GOOGLE_ID_KEY>/edit?gid=0#gid=0
 After the script completes, carefully review the camera output results. Identify any cameras that are marked as “unreachable” but are in fact online and functioning properly, and update their status to reflect their correct state.
 ---
-##Third Part
+## Third Part
 For the customer you’re working on, you must run The Google Apps Script in the corresponding System Health Summary Google Sheet:
 
 shs_complete.gs
