@@ -1,127 +1,131 @@
-This process explains how to collect System Health Summary data for Axis cameras from each site. It consists of Three parts.
+System Health Summary (Axis Cameras)
 
-Part 1 is performed on the customer’s site and is used to gather the required data directly from their network.
-Part 2 takes the collected data and formats it into a clean, organized layout within a Google Sheet.
+This document outlines the process for collecting and processing System Health Summary (SHS) data for Axis cameras across customer sites.
 
-Part 3 will create the charts for the non-axis cameras using App Scripts.
+The workflow consists of three parts:
 
-Fist Part
-The information from the customer’s site can be gathered in two ways.
+Part 1 – Data collection from the customer’s network
+Part 2 – Data processing and formatting into a Google Sheet
+Part 3 – Chart generation using Google Apps Script
+Part 1 – Data Collection
 
-Option 1 (Preferred): Use Axis Device Manager Extend on the customer’s network and export a CSV file containing the camera information. Follow the Instructions: here
+Data from the customer’s site can be gathered using one of the following methods:
 
-Option 2 (Only use when ADMX is not an option): Run the Bash script below to collect the required data directly from the cameras using VAPIX commands.
+Option 1 (Preferred): Axis Device Manager Extend (ADMX)
+Use Axis Device Manager Extend on the customer’s network
+Export a CSV file containing camera information
+Follow the official instructions (link referenced as “here”)
+Option 2 (Fallback): Bash Script (VAPIX)
 
-Depending on the site’s network architecture, run Option 1 or Option 2 on servers that provide coverage for the entire network. Some sites may require the process to be run on multiple servers, while others may only require a single server.
+Use this option only if ADMX is not available
 
-If using Axis Device Manager Extend (ADMX), connect all required nodes within ADMX and export the combined camera data into a single CSV file.
+Run a Bash script to collect camera data directly using VAPIX commands.
 
+Notes on Execution
+Run the selected option on servers that cover the entire network
+Some environments may require:
+Multiple servers
+Or just a single server
+When using ADMX:
+Ensure all required nodes are connected
+Export combined camera data into one CSV
 Running the Bash Script (Option 2)
-Create and run the Bash script on a server that is connected to the customer’s network. Ensure you are logged in as the root user.
+1. Prepare the Environment
 
-Navigate to the temporary directory:
+Log in as root and navigate to /tmp:
 
 cd /tmp
-Create the script file and make it executable:
-
+2. Create the Script
 touch vapix_scrapper.sh
 chmod +x vapix_scrapper.sh
-Open the file for editing:
-
+3. Edit the Script
 less vapix_scrapper.sh
-Paste the provided script code into the newly created file and save it. Script is here.
-
-Once executed, the script will automatically generate a .txt file containing the camera information.
-
+Paste the provided script code (referenced as “Script is here”)
+Save and exit
+4. Execute the Script
 ./vapix_scrapper.sh
-The output file will be located at:
+5. Output Location
+
+The script generates a .txt file at:
 
 /tmp/${host_name}/${server_id}_axis_basicdeviceinfo.txt
-After the script completes, copy the output file back to your local machine for further processing.
+Copy this file to your local machine for processing
+Part 2 – Data Processing
+1. Prepare the Google Sheet
+Add a new tab after "Inventory Charts"
+Name it exactly:
+AxisCameras
 
-Second Part
-Add a Tab in the Google Sheet right after [“Inventory Charts”] and name it exactly [“AxisCameras“] (no space between Axis and Cameras)
+⚠️ No space between “Axis” and “Cameras”
 
-Once the data has been gathered from the customer’s site, it must be processed and then entered into the site-specific Google Sheet. (If ADMX was used then follow the ADMX instructions to add them manually and skip to part 3)
+2. Upload Data
 
-Take the gathered data (either the exported .txt file or the ADMX .csv file) and upload it to the Support Utility in the appropriate site folder:
+Upload collected data to:
 
 /opt/API_Integration/sites/<site_name>/
-Next, run the Python script located in the /opt/API_Integration/ directory:
+Supports:
+.txt (from script)
+.csv (from ADMX)
 
+If using ADMX manual process, skip to Part 3
+
+3. Run the Python Script
 cd /opt/API_Integration/
 python3 shs_axis_cams.py
-When the script runs, it will display a list of available sites. Select the site you are working on by typing the corresponding name exactly as shown in the list.
+4. Select Site
+Choose the site from the displayed list
+Enter the name exactly as shown
+5. If Site Is Missing (Custom Entry)
 
-If the site is not listed, choose the final option to create a custom entry. Creating a custom entry requires the following three values:
+Provide the following:
 
 Name
-Any descriptive name for the site. The specific string is not critical.
-
-Location for source file
-The directory containing the data collected in Part 1. This should be:
-
+Any descriptive name (not strict)
+Source File Location
 /opt/API_Integration/sites/<site_name>/
 Google Sheet ID
-This can be found in the URL of the Google Sheet. For example:
 
-https://docs.google.com/spreadsheets/d/<THIS_IS_THE_GOOGLE_ID_KEY>/edit?gid=0#gid=0
-After the script completes, carefully review the camera output results. Identify any cameras that are marked as “unreachable” but are in fact online and functioning properly, and update their status to reflect their correct state.
+From the URL:
 
-Third Part
-For the customer you’re working on, you must run The Google Apps Script in the corresponding System Health Summary Google Sheet:
+https://docs.google.com/spreadsheets/d/<GOOGLE_SHEET_ID>/edit
+6. Validate Results
+Review processed camera data
+Fix any incorrect statuses:
+Example: Cameras marked “unreachable” but actually online
+Part 3 – Google Apps Script (Chart Generation)
 
-shs_complete.gs
+Run the Apps Script in the System Health Summary Google Sheet.
 
-1) Open Apps Script from the Google Sheet
-Open the customer’s Site Health Summary Google Sheet.
+1. Open Apps Script
+Open the customer’s SHS Google Sheet
+Navigate to:
+Extensions → Apps Script
+2. Verify Script File
 
-In the top menu, click Extensions.
-
-Select Apps Script.
-
-This opens Apps Script in a new tab.
-
-2) Confirm the script file exist
-In the Apps Script tab, look at the left sidebar under Files.
-
-Check whether this file is listed:
+Check for:
 
 shs_complete.gs
-
-If the file exist, skip to Step 4: Run the scripts.
-
-If one or both files do not exist, continue to Step 3: Create the missing files.
-
-3) Create missing script
-Click the + (Add file) button next to Files.
-
-Choose Script.
-
-Name the file exactly:
-
+If it exists → skip to Step 4
+If not → continue to Step 3
+3. Create Missing Script
+Click + (Add file) → Script
+Name:
 shs_complete.gs
-
-Open the new file, then copy the provided code and paste it into the editor body.
-
-shs_complete.gs
-
-Click the Save icon.
-
-4) Run the scripts
-Run each script function “main”:
-
-Click code.gs in the left sidebar to open it.
-
-Click the Run button at the top of the editor.
-
-If prompted, complete the authorization steps (choose your Google account → allow permissions).
-
-If only one function needs to run and not all four
-
-selected the desired function form the list
-
-5) Verify
-Return to the Site Health Summary Google Sheet and confirm the expected updates (charts) appear after both scripts run.
-
-Go back to the SHS instructions: Back
+Paste the provided script code
+Save the file
+4. Run the Script
+Open code.gs (or relevant script file)
+Click Run
+Authorization (if prompted)
+Select your Google account
+Grant permissions
+Running Specific Functions
+Select the desired function from the dropdown
+Run individually if needed
+5. Verify Output
+Return to the Google Sheet
+Confirm:
+Charts are generated
+Data appears correctly
+Additional Reference
+Return to SHS Instructions: Back
