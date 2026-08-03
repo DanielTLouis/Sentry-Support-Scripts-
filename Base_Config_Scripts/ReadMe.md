@@ -1,6 +1,6 @@
 # Running the ASentry Base Configuration Setup for Linux Servers
 
-To run the **ASentry Base Configuration Setup** for Linux servers, follow the steps below.
+To run the **ASentry Base Configuration Setup** for Linux servers with the openSUSE distribution of Linux, follow the steps below.
 
 1. Navigate to the **BaseConfigDocs** directory on the server. The `run_base_config.sh` script should be located in the same directory as this document.
 
